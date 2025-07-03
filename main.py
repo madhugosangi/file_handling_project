@@ -48,10 +48,26 @@ def update_file():
         name=input("enter the file name:-")
         p=Path(name)
         if p.exists and p.is_file():
-            with open(p,"a") as fs:
-                data=input("enter data to append in to a file:-")
-                fs.write(" "+data)
+            print("enter 1 for updating the file name")
+            print("enter 2 for over writing the data of a file")
+            print("enter 3 for appending the data into the file")
+            res=int(input("enter your response:-"))
+            if res==1:
+                name2=input("tell your new file name:-")
+                p2=Path(name2)
+                p.rename(p2)
+        
+            elif res==2:
+                with open(p,"w") as fs:
+                    data=input("enter new data to over write:-")
+                    fs.write(data)
+
+            elif res==3:
+                with open(p,"a") as fs:
+                    data=input("enter data to append in to a file:-")
+                    fs.write(" "+data)
             print("file updated sucessfully")
+
         else:
             print("file not exist")   
     except Exception as err:
@@ -60,7 +76,7 @@ def update_file():
 def delete_file():
     try:
         reading_folder()
-        name=input("enter the file name:-")
+        name=input("enter the file name which you want to delete:-")
         p=Path(name)
         if p.exists and p.is_file():
             os.remove(p)
